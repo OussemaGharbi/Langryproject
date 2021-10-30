@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "587665291087",
+    "project_id": "landryapp-69637",
+    "storage_bucket": "landryapp-69637.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:587665291087:android:e03b12cf5ad500f1cb373a",
+        "android_client_info": {
+          "package_name": "com.landryproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "587665291087-76a5122rj3ggt36pn6eq5mvucj2kodcf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRK6rs_xKz1Yq4Kn15TfFFaz-dkg1UGbc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "587665291087-76a5122rj3ggt36pn6eq5mvucj2kodcf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
