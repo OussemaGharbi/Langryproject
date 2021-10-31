@@ -63,7 +63,7 @@ void showProgressIndicator(BuildContext context) {
                 otp.text = submitedCode;
                 print("Completed");
                 print(otp.text);
-                controller.verifyOTP(otp.text);
+                controller.otpVerify(otp.text);
               },
 
         ),
