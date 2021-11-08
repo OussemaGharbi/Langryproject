@@ -1,12 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:landryproject/models/user_db.dart';
 import 'package:landryproject/presentation/HomeScreen.dart';
+import 'package:landryproject/presentation/Services.dart';
 
 class LoginController extends GetxController {
 
   var isLoading = false.obs;
   var verId = '';
   var authStatus = ''.obs;
+  var db = UserDb();
 
   var auth = FirebaseAuth.instance;
 
@@ -14,7 +17,7 @@ class LoginController extends GetxController {
     isLoading.value = true;
     await auth.verifyPhoneNumber(
         timeout: Duration(seconds: 50),
-        phoneNumber: phone,
+        phoneNumber: '+216$phone',
         verificationCompleted: (AuthCredential authCredential) {
           if (auth.currentUser != null) {
             isLoading.value = false;
@@ -44,7 +47,10 @@ class LoginController extends GetxController {
       );
       if (userCredential.user != null) {
         isLoading.value = false;
-        Get.to(HomeScreen());
+        db.AddNewUser(userCredential.user.phoneNumber);
+
+        Get.off(ServicesScreen());
+
       }
     } on Exception catch (e) {
       Get.snackbar("otp info", "otp code is not correct !!");
