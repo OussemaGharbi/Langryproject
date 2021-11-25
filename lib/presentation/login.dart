@@ -173,7 +173,7 @@ class Login extends StatelessWidget {
                                     onPressed: (){
                                       if (_formkey.currentState!.validate()) {
                                         controller.verifyPhone(phone.text);
-                                        Get.off(OtpScreen());
+                                        Get.to(OtpScreen());
                                       }
                                     }
                                 ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:landryproject/constants/constants.dart';
 import 'package:landryproject/presentation/login.dart';
+import 'package:lottie/lottie.dart';
 
 class Home extends StatelessWidget {
   @override
@@ -29,6 +30,7 @@ class Home extends StatelessWidget {
                           image: AssetImage("assets/images/cloth_faded.png"),
                         ),
                       ),
+
                     ),
                   ),
                   Container(
@@ -39,6 +41,7 @@ class Home extends StatelessWidget {
                         scale: 1.1,
                       ),
                     ),
+
                   ),
                 ],
               ),
@@ -92,7 +95,7 @@ class Home extends StatelessWidget {
 
                             color: Constants.primaryColor,
                             onPressed: () {
-                              Get.to(Login());
+                              Get.to(() => Login());
                             },
                           ),
                         ),
