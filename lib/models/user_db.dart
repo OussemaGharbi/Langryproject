@@ -6,7 +6,7 @@ var auth = FirebaseAuth.instance ;
 var db = FirebaseFirestore.instance.collection("users");
 
 AddNewUser(String phone) async {
-  var id = auth.currentUser.uid;
+  String id = auth.currentUser!.uid;
   var currentUserInfo = await db.doc(id).get();
   if(!currentUserInfo.exists){
     await db.doc(id).set({
@@ -18,7 +18,7 @@ AddNewUser(String phone) async {
 
 }
 UpdateProfile(geolocalisation){
-  var id= auth.currentUser.uid;
+  var id= auth.currentUser!.uid;
   db.doc(id).update({
     geolocalisation: geolocalisation
   });

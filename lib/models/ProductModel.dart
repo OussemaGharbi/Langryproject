@@ -6,9 +6,10 @@ import 'package:flutter/material.dart';
 class Product {
   late String name, image, id;
   late int price;
-  late String categorie;
+  late String categorie,  productid ;
 
-  Product(this.id, this.name, this.image, this.price, this.categorie,);
+
+  Product(this.id, this.name, this.image, this.price, this.categorie,this.productid);
 
   Product.fromJson(Map<dynamic, dynamic> map) {
     if (map == null) {

@@ -17,7 +17,7 @@ class CategoriesViewModel extends GetxController{
     _loading.value = true;
      await _collectionReference.get().then((value) {
       for(int i = 0; i<value.docs.length; i++){
-        _categoriesmodel.add(CategoriesModel.fromJson(value.docs[i].data()));
+        _categoriesmodel.add(CategoriesModel.fromJson(value.docs[i].data() as Map<dynamic,dynamic>));
         print(_categoriesmodel.length);
         _loading.value=false;
       }

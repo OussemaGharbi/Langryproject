@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:landryproject/constants/constants.dart';
+import 'package:landryproject/controllers/Card_viewModel.dart';
 import 'package:landryproject/controllers/HomeController.dart';
 import 'package:landryproject/presentation/ProductScreen.dart';
 import 'package:landryproject/presentation/cart/cart.dart';
@@ -18,9 +19,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
 
-
   @override                               
   Widget build(BuildContext context) {
+    final productcontroller = Get.put(ProductScreen());
+
     return GetBuilder<HomeController>(
       init: Get.put(HomeController()),
       builder: (controller) => Container(
@@ -123,6 +125,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
   Widget bottomNavigationBar() {
+    final Cart = Get.put(CardViewModel());
+    dynamic z = Cart.cardPoduct;
     return GetBuilder<HomeController>(
       init: HomeController(),
       builder: (controller)=>
@@ -141,6 +145,11 @@ class _HomeScreenState extends State<HomeScreen> {
           if(index==1){
             Get.to(ProductScreen());
           }
+          if(index ==0){
+
+            Get.to(CartScreen(), arguments: z);
+          }
+
           controller.ChangeSelectedValue(index);
 
       },),

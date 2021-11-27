@@ -6,7 +6,7 @@ class CardModel {
 
   CardModel({
     this.name="",
-    this.image="",
+    this.image="https://cdn.futura-sciences.com/buildsv6/images/mediumoriginal/c/9/f/c9f186c730_82925_googlelogo.jpg",
     this.quantity=1,
     this.price=0 });
 

@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:landryproject/models/user_db.dart';
-import 'package:landryproject/presentation/HomeScreen.dart';
 import 'package:landryproject/presentation/Services.dart';
 
 class LoginController extends GetxController {
@@ -47,7 +46,7 @@ class LoginController extends GetxController {
       );
       if (userCredential.user != null) {
         isLoading.value = false;
-        db.AddNewUser(userCredential.user.phoneNumber);
+        db.AddNewUser(userCredential.user!.phoneNumber?? "");
 
         Get.off(ServicesScreen());
 

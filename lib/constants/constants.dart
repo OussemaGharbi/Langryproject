@@ -4,6 +4,7 @@ final String columnName = 'name';
 final String columnQuantity= "quantity";
 final String columnImage = 'image';
 final String columnPrice = 'price';
+
 class Constants {
   static final Color primaryColor = Color(0xFF9FC2CC);
   //  static final Color primaryColor = Color.fromRGBO(86, 215, 188, 1);

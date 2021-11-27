@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 // Import the firebase_core plugin
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
+import 'package:landryproject/controllers/Card_viewModel.dart';
 import 'package:landryproject/helper/binding.dart';
 import 'package:landryproject/models/CategoriesViewModel.dart';
 import 'package:landryproject/presentation/Home.dart';
@@ -46,12 +47,14 @@ class _AppState extends State<MyApp> {
   void initState() {
     initializeFlutterFire();
 
+
     super.initState();
   }
 
 
 final loginController = Get.put(LoginController());
   final Categories = Get.put(CategoriesViewModel());
+
 
   @override
   Widget build(BuildContext context) {

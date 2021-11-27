@@ -11,8 +11,14 @@ import 'package:landryproject/presentation/cart/cart.dart';
 
 
 class ProductScreen extends StatelessWidget {
+
   late List<Product>? ProductToCart;
   late CardViewModel? cardViewModel = new CardViewModel();
+  late List<dynamic> cardlist =[].obs;
+
+
+
+
 
 
 
@@ -73,6 +79,21 @@ class ProductScreen extends StatelessWidget {
                                           onPressed: () {
                                            cardViewModel!.addProduct(CardModel(name: controller.productModel[index].name, price:controller.productModel[index].price.toInt(), image :controller.productModel[index].image));
                                             cardViewModel!.getAllProduct();
+                                            cardlist.add(
+
+                                            [controller
+                                                  .productModel[index].name,
+                                        controller
+                                                  .productModel[index].price
+                                                  .toInt(),
+
+
+                                              controller
+                                                  .productModel[index].image]
+                                            );
+                                            Get.snackbar("Added to Card", "Successfully");
+
+
 
 
                                           },
@@ -137,7 +158,8 @@ class ProductScreen extends StatelessWidget {
 
 
                       onPressed: () {
-                        Get.to(CartScreen());
+                        Get.to(CartScreen(), arguments: cardlist);
+
 
 
                       },
@@ -153,5 +175,8 @@ class ProductScreen extends StatelessWidget {
         ),
       ),
     );
+
   }
+
 }
+
