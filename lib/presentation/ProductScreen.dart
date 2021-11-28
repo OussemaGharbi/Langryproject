@@ -77,21 +77,10 @@ class ProductScreen extends StatelessWidget {
                                         RaisedButton.icon(
 
                                           onPressed: () {
-                                           cardViewModel!.addProduct(CardModel(name: controller.productModel[index].name, price:controller.productModel[index].price.toString(), image :controller.productModel[index].image, productId: controller.productModel[index].productId, quantity: 1));
                                             cardViewModel!.getAllProduct();
-                                            cardlist.add(
 
-                                            [controller
-                                                  .productModel[index].name,
-                                        controller
-                                                  .productModel[index].price
-                                                  .toString(),
-
-
-                                              controller
-                                                  .productModel[index].image]
-                                            );
                                             CardViewModel x= Get.put(CardViewModel());
+                                            x.addProduct(CardModel(name: controller.productModel[index].name, price:controller.productModel[index].price.toString(), image :controller.productModel[index].image, productId: controller.productModel[index].productId, quantity: 1));
                                             x.getAllProduct();
                                             Get.snackbar("Added to Card", "Successfully");
 

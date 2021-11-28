@@ -24,11 +24,10 @@ class CardViewModel extends GetxController{
       for (int i=0; i<_cardProduct.length;i++){
         if(_cardProduct[i].productId==model.productId){
           return;
-        }else {
-          var dbHelper = CardDataBaseHelper.db;
-          await dbHelper.insert(model);
         }
       }
+      var dbHelper = CardDataBaseHelper.db;
+      await dbHelper.insert(model);
     }
 
     update();

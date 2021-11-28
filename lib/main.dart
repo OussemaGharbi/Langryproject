@@ -46,8 +46,6 @@ class _AppState extends State<MyApp> {
   @override
   void initState() {
     initializeFlutterFire();
-
-
     super.initState();
   }
 

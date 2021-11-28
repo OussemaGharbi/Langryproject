@@ -5,6 +5,7 @@ import 'package:landryproject/controllers/Card_viewModel.dart';
 import 'package:landryproject/models/ProductModel.dart';
 import 'package:landryproject/models/card_model.dart';
 import 'package:landryproject/presentation/ProductScreen.dart';
+import 'package:landryproject/presentation/checkout/checkoutView.dart';
 
 
 
@@ -146,7 +147,7 @@ class CartScreen extends StatelessWidget {
 
 
                     onPressed: () {
-                      Get.off(ProductScreen());
+                      Get.to(CheckoutView());
 
                     },
                     icon: Icon(Icons.save),
