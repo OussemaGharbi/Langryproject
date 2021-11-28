@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 
 class Product {
   late String name, image, id;
-  late int price;
-  late String categorie,  productid ;
+  late String price;
+  late String categorie,  productId ;
 
 
-  Product(this.id, this.name, this.image, this.price, this.categorie,this.productid);
+  Product(this.id, this.name, this.image, this.price, this.categorie,this.productId);
 
   Product.fromJson(Map<dynamic, dynamic> map) {
     if (map == null) {
@@ -20,6 +20,7 @@ class Product {
     image = map['image'];
     price = map['price'];
     categorie = map['categorie'];
+    productId = map['productId'];
   }
 
   toJson() {
@@ -28,7 +29,8 @@ class Product {
       'name': name,
       'image': image,
       'price': price,
-      'categorie': categorie
+      'categorie': categorie,
+      'productId' : productId
     };
   }
 }

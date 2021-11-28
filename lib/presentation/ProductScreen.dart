@@ -62,7 +62,7 @@ class ProductScreen extends StatelessWidget {
                                   SizedBox(
                                     height: 10,
                                   ),
-                                  Text("${controller.productModel[index].price.toString()} Dt",style: TextStyle(
+                                  Text("${controller.productModel[index].price} Dt",style: TextStyle(
                                     color: Colors.cyan,
                                   ),
                                   ),
@@ -77,7 +77,7 @@ class ProductScreen extends StatelessWidget {
                                         RaisedButton.icon(
 
                                           onPressed: () {
-                                           cardViewModel!.addProduct(CardModel(name: controller.productModel[index].name, price:controller.productModel[index].price.toInt(), image :controller.productModel[index].image));
+                                           cardViewModel!.addProduct(CardModel(name: controller.productModel[index].name, price:controller.productModel[index].price.toString(), image :controller.productModel[index].image, productId: controller.productModel[index].productId, quantity: 1));
                                             cardViewModel!.getAllProduct();
                                             cardlist.add(
 
@@ -85,7 +85,7 @@ class ProductScreen extends StatelessWidget {
                                                   .productModel[index].name,
                                         controller
                                                   .productModel[index].price
-                                                  .toInt(),
+                                                  .toString(),
 
 
                                               controller

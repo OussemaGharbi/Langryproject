@@ -4,6 +4,7 @@ final String columnName = 'name';
 final String columnQuantity= "quantity";
 final String columnImage = 'image';
 final String columnPrice = 'price';
+final String columnProductId = 'productId';
 
 class Constants {
   static final Color primaryColor = Color(0xFF9FC2CC);

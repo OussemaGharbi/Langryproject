@@ -1,14 +1,16 @@
 class CardModel {
-  late  String name, image;
+  late  String name, image, productId;
   late  int  quantity;
-  late int price;
+  late String price;
 
 
   CardModel({
     this.name="",
-    this.image="https://cdn.futura-sciences.com/buildsv6/images/mediumoriginal/c/9/f/c9f186c730_82925_googlelogo.jpg",
+    this.image="",
     this.quantity=1,
-    this.price=0 });
+    this.price="",
+    this.productId=""
+  });
 
   CardModel.fromJson(Map<dynamic, dynamic> map) {
     if (map == null) {
@@ -19,6 +21,7 @@ class CardModel {
     image = map['image'];
     quantity = map['quantity'];
     price = map['price'];
+    productId = map['productId'];
   }
 
   toJson() {
@@ -27,6 +30,7 @@ class CardModel {
       'image': image,
       'quantity': quantity,
       'price': price,
+      'productId': productId,
     };
   }
 }

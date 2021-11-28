@@ -17,10 +17,22 @@ class CardViewModel extends GetxController{
   }
 
   addProduct(CardModel model) async{
+    if(_cardProduct.length==0){
+      var dbHelper = CardDataBaseHelper.db;
+      await dbHelper.insert(model);
+    }else{
+      for (int i=0; i<_cardProduct.length;i++){
+        if(_cardProduct[i].productId==model.productId){
+          return;
+        }else {
+          var dbHelper = CardDataBaseHelper.db;
+          await dbHelper.insert(model);
+        }
+      }
+    }
 
-    var dbHelper = CardDataBaseHelper.db;
-    await dbHelper.insert(model);
     update();
+
   }
 
   getAllProduct() async {
@@ -34,7 +46,7 @@ class CardViewModel extends GetxController{
   }
   getTotalPrice() {
     for (int i = 0; i < _cardProduct.length; i++) {
-      _totalPrice += ((_cardProduct[i].price) *
+      _totalPrice += ((double.parse(_cardProduct[i].price)) *
           _cardProduct[i].quantity);
       print(_totalPrice);
       update();

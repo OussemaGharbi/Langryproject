@@ -25,7 +25,8 @@ class CardDataBaseHelper {
       $columnName TEXT,
       $columnImage TEXT ,
       $columnQuantity INTEGER ,
-      $columnPrice INTEGER)
+      $columnPrice TEXT,
+      $columnProductId TEXT)
      ''');
         });
   }
