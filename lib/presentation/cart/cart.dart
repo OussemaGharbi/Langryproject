@@ -15,19 +15,18 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     dynamic y = Get.arguments.length;//index
     dynamic x = Get.arguments;//index
 
 
-    final Cart = Get.put(CardViewModel());
-    dynamic z = Cart.cardPoduct;
-    int length = Cart.cardPoduct.length;
-
+    Get.put(CardViewModel());
+    // dynamic z = Cart.cardPoduct;
 
 
 
     return GetBuilder<CardViewModel>(
-      init: CardViewModel(),
+      init: CardViewModel() ,
       builder:(controller)=> Scaffold(
         body: Column(
           children: [
@@ -63,7 +62,7 @@ class CartScreen extends StatelessWidget {
                                 SizedBox(
                                   height: 10,
                                 ),
-                                Text("${z[index].price} Dt",style: TextStyle(
+                                Text("${controller.cardPoduct[index].price} Dt",style: TextStyle(
                                   color: Colors.cyan,
                                 ),
                                 ),
@@ -161,5 +160,6 @@ class CartScreen extends StatelessWidget {
         ),
       ),
     );
+
   }
 }

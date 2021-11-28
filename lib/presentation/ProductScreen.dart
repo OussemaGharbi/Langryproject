@@ -91,6 +91,8 @@ class ProductScreen extends StatelessWidget {
                                               controller
                                                   .productModel[index].image]
                                             );
+                                            CardViewModel x= Get.put(CardViewModel());
+                                            x.getAllProduct();
                                             Get.snackbar("Added to Card", "Successfully");
 
 
@@ -158,6 +160,7 @@ class ProductScreen extends StatelessWidget {
 
 
                       onPressed: () {
+
                         Get.to(CartScreen(), arguments: cardlist);
 
 

@@ -9,7 +9,7 @@ class CardViewModel extends GetxController{
   ValueNotifier<bool> _loading = ValueNotifier(false);
   double get totalPrice => _totalPrice;
   double _totalPrice=0.0;
-  List<CardModel> _cardProduct = [];
+  List<CardModel> _cardProduct = <CardModel>[].obs;
   List<CardModel> get cardPoduct => _cardProduct;
 
   CardViewModel() {
@@ -28,10 +28,8 @@ class CardViewModel extends GetxController{
     var dbHelper = CardDataBaseHelper.db;
     _cardProduct = await dbHelper.getAll();
     print(_cardProduct.length);
-
     _loading.value = false;
     update();
-    return _cardProduct;
 
   }
   getTotalPrice() {

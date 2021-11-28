@@ -146,7 +146,9 @@ class _HomeScreenState extends State<HomeScreen> {
             Get.to(ProductScreen());
           }
           if(index ==0){
-
+            CardViewModel c =Get.put(CardViewModel());
+            c.update();
+            print('updated');
             Get.to(CartScreen(), arguments: z);
           }
 
