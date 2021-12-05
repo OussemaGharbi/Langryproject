@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:landryproject/models/user_db.dart';
+import 'package:landryproject/presentation/Home.dart';
 import 'package:landryproject/presentation/Services.dart';
 
 class LoginController extends GetxController {
@@ -35,7 +36,9 @@ class LoginController extends GetxController {
           this.verId = id;
         });
   }
-
+  Future<void> signOut() async {
+    await FirebaseAuth.instance.signOut();
+  }
 
   /////////
   otpVerify(String otp) async {
@@ -48,7 +51,7 @@ class LoginController extends GetxController {
         isLoading.value = false;
         db.AddNewUser(userCredential.user!.phoneNumber?? "");
 
-        Get.off(ServicesScreen());
+        Get.off(HomeScreen());
 
       }
     } on Exception catch (e) {

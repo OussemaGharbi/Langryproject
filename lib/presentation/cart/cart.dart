@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:landryproject/constants/constants.dart';
 import 'package:landryproject/controllers/Card_viewModel.dart';
-import 'package:landryproject/models/ProductModel.dart';
-import 'package:landryproject/models/card_model.dart';
-import 'package:landryproject/presentation/ProductScreen.dart';
-import 'package:landryproject/presentation/checkout/checkoutView.dart';
+
+import 'package:landryproject/presentation/checkout/locationTest.dart';
 
 
 
@@ -28,8 +28,15 @@ class CartScreen extends StatelessWidget {
 
     return GetBuilder<CardViewModel>(
       init: CardViewModel() ,
-      builder:(controller)=> Scaffold(
-        body: Column(
+      builder:(controller)=>   Scaffold(
+        body: controller.cardPoduct.length ==0 ? Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Center(child: SvgPicture.asset('assets/images/cartempty.svg', width: 200,height: 200,)),
+            Text('Cart is empty',
+              textAlign: TextAlign.center,),
+          ],
+        ) :Column(
           children: [
             Expanded(
               child: Container(
@@ -38,78 +45,101 @@ class CartScreen extends StatelessWidget {
                   itemCount: controller.cardPoduct.length,
 
                   itemBuilder: (context, index) {
-                    return Container(
-                      height: 140,
+                    return Dismissible(
+                      key: UniqueKey(),
+                      direction: DismissDirection.horizontal,
+                      onDismissed: (direction) {
+                        if (direction == DismissDirection.endToStart) {
+                          controller.totalPrice -= double.parse(controller.cardPoduct[index].price) ;
 
-                      child: Row(
-                        children: [
+                          controller.deletelement(index);
+                         controller.cardPoduct.removeAt(index);
 
-                          Container(height: 100,
-                            width: 100,
-
-                            child: Image.network(controller.cardPoduct[index].image,
-                              fit: BoxFit.fill,),
-                          ),
-
-                          Padding(
-                            padding: const EdgeInsets.only(left: 30),
-                            child: Column(
-                              children: [
-                                Text("${controller.cardPoduct[index].name}",style: TextStyle(
-                                  fontSize: 21,
-                                ),
-
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Text("${controller.cardPoduct[index].price} Dt",style: TextStyle(
-                                  color: Colors.cyan,
-                                ),
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Container(
-                                  height: 40,
-                                  child: Row(
-
-                                    children: [
-                                      IconButton(
-                                        icon: new Icon(Icons.add_circle_outline),
-                                        onPressed: (){
-
-
-                                        },
-                                      ),
-                                      SizedBox(
-                                        height: 20,
-                                      ),
-                                      Text('1',style: TextStyle(
-
-                                      ),
-                                      ),
-                                      SizedBox(
-                                        height: 20,
-                                      ),
-                                      IconButton(
-                                        icon: new Icon(Icons.remove_circle_outline_outlined),
-                                        onPressed: (){
-
-
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
-
-                            ),
-                          ),
-
-                        ],
+                          Get.snackbar('context', 'Mail has beed deleted!');
+                        }
+                      },
+                      background:  Container(
+                        alignment: Alignment.centerRight,
+                        padding: EdgeInsets.only(right: 20.0),
+                        color: Colors.redAccent,
+                        child: Icon(Icons.delete, color: Colors.white),
                       ),
 
+                      child: Container(
+                        height: 140,
+
+                        child: Row(
+                          children: [
+
+                            Container(height: 100,
+                              width: 100,
+
+                              child: Image.network(controller.cardPoduct[index].image,
+                                fit: BoxFit.fill,),
+                            ),
+
+                            Padding(
+                              padding: const EdgeInsets.only(left: 30),
+                              child: Column(
+                                children: [
+                                  Text("${controller.cardPoduct[index].name}",style: TextStyle(
+                                    fontSize: 21,
+                                  ),
+
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text("${controller.cardPoduct[index].price} Dt",style: TextStyle(
+                                    color: Colors.cyan,
+                                  ),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Container(
+                                    height: 40,
+                                    child: Row(
+
+                                      children: [
+                                        IconButton(
+                                          icon: new Icon(Icons.add_circle_outline),
+                                          onPressed: (){
+                                            controller.InscreaseQuantity(index);
+
+
+                                          },
+                                        ),
+                                        SizedBox(
+                                          height: 20,
+                                        ),
+                                        Text('${controller.cardPoduct[index].quantity.toString()}',style: TextStyle(
+
+                                        ),
+                                        ),
+                                        SizedBox(
+                                          height: 20,
+                                        ),
+                                        IconButton(
+                                          icon: new Icon(Icons.remove_circle_outline_outlined),
+                                          onPressed: (){
+                                            controller.DecreaseQuantity(index);
+
+
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                ],
+
+                              ),
+                            ),
+
+                          ],
+                        ),
+
+                      ),
                     );
 
 
@@ -132,26 +162,35 @@ class CartScreen extends StatelessWidget {
 
                 ),
                 ),
-                Text("200 DT", style: TextStyle(
-                  fontSize: 22,
-                  color: Colors.green,
+                GetBuilder<CardViewModel>(
+                  init: Get.put(CardViewModel()),
+                  builder: (controller)=> Text("${controller.totalPrice.toStringAsFixed(2)}", style: TextStyle(
+                    fontSize: 22,
+                    color: Colors.green,
 
-                ),
+                  ),
+                  ),
                 ),
                 Container(
                   padding: EdgeInsets.all(15.0),
-                  width: 130,
+                  width: 150,
                   height: 90,
-                  child: FloatingActionButton.extended(
-                    backgroundColor: Colors.green,
 
+                  child: ElevatedButton(
+
+                    child: Text('Check out'),
+
+                    style: ElevatedButton.styleFrom(
+                      primary: Constants.primaryColor,
+                      shadowColor: Colors.black,
+
+                    ),
 
                     onPressed: () {
-                      Get.to(CheckoutView());
+                      Get.to(GetLocation());
 
                     },
-                    icon: Icon(Icons.save),
-                    label: Text("Save"),
+
                   ),
                 ),
               ],

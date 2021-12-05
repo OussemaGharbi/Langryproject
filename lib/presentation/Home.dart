@@ -4,9 +4,13 @@ import 'package:get/get.dart';
 import 'package:landryproject/constants/constants.dart';
 import 'package:landryproject/controllers/Card_viewModel.dart';
 import 'package:landryproject/controllers/HomeController.dart';
+import 'package:landryproject/models/ProductModel.dart';
 import 'package:landryproject/presentation/ProductScreen.dart';
+import 'package:landryproject/presentation/ProfileScreen.dart';
 import 'package:landryproject/presentation/cart/cart.dart';
 import 'package:landryproject/widgets/custom_text.dart';
+import 'package:landryproject/presentation/widgets/style.dart';
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -16,6 +20,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  int selectedFoodCard = 0;
 
 
 
@@ -34,82 +39,47 @@ class _HomeScreenState extends State<HomeScreen> {
 
           ),
           body: Container(
-            margin: EdgeInsets.only(top: 100,left: 12, right: 0),
 
 
             child: Column(
 
               children: [
-                Container(
-                    margin: EdgeInsets.only(left: 12),
-                    child: CustomText(text: "Services",)
-                ) ,
-                SizedBox(height: 20,),
+
                 Expanded(
                   child: Container(
                     padding: EdgeInsets.all(20),
-                    child: ListView.separated(
-                      itemCount: controller.categoryModel.length ,
-                      scrollDirection: Axis.horizontal,
-
-                      itemBuilder: (context, index) {
-                        return Container(
-
-                          child: Row(
-                            children: [
-
-                              Column(
-                                children: [
-                                  Container(
-                                    height:MediaQuery.of(context).size.height * .2,
-                                    width: MediaQuery.of(context).size.width * .3,
-                                    decoration: BoxDecoration(
-                                     color: Colors.white,
-                                      borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(10),
-                                          topRight: Radius.circular(10),
-                                          bottomLeft: Radius.circular(10),
-                                          bottomRight: Radius.circular(10)
-                                      ),
+                    child: ListView(
+                      children: [
 
 
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color:Constants.kPrimaryColor.withOpacity(0.1) ,
-                                           spreadRadius: 5,
-                                          blurRadius: 7,
-                                          offset: Offset(0, 3),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20),
+                          child: PrimaryText(
+                              text: 'Categories',
+                              fontWeight: FontWeight.w700,
+                              size: 22),
+                        ),
 
-
-                                        )
-                                      ]       ,
-                                    ),
-
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Image.network(controller.categoryModel[index].image,
-                                        fit: BoxFit.fill,),
-                                    ),
-                                  ),
-                                  SizedBox(height: 20,),
-                                  CustomText(text: controller.categoryModel[index].name,)
-                                ],
+                        SizedBox(
+                          height: 240,
+                          child: GetBuilder<HomeController>(
+                            init: HomeController(),
+                            builder:(controller)=> ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: controller.categoryModel.length ,
+                              itemBuilder: (context, index) => Padding(
+                                padding: EdgeInsets.only(left: index == 0 ? 25 : 0),
+                                child: foodCategoryCard(
+                                    controller.categoryModel[index].image,
+                                    controller.categoryModel[index].name,
+                                    index),
                               ),
-
-
-                            ],
+                            ),
                           ),
+                        ),
 
-                        );
 
-
-                      }, separatorBuilder: (BuildContext context, int index) {
-                      return SizedBox(
-                        height: 12,
-                        width: 20,
-                      );
-                    },
-
+                      ],
                     ),
                   ),
                 ),
@@ -138,6 +108,9 @@ class _HomeScreenState extends State<HomeScreen> {
         BottomNavigationBarItem(label: "",
 
             icon: Icon(Icons.add_shopping_cart)),
+        BottomNavigationBarItem(label: "",
+
+            icon: Icon(Icons.person)),
       ],
       currentIndex: controller.navigatorValue ,
       selectedItemColor: Constants.primaryColor,
@@ -151,10 +124,63 @@ class _HomeScreenState extends State<HomeScreen> {
             print('updated');
             Get.to(CartScreen(), arguments: z);
           }
+          if(index==2){
+            Get.to(ProfileView());
+          }
 
           controller.ChangeSelectedValue(index);
 
       },),
     );
   }
+  Widget foodCategoryCard(String imagePath, String name, int index) {
+    return GetBuilder<HomeController>(
+      init:HomeController(),
+      builder:(controller)=> GestureDetector(
+        onTap: () => {
+          setState(
+                () => {
+              print(index),
+              selectedFoodCard = index,
+            },
+          ),
+        },
+
+        child: Container(
+          margin: EdgeInsets.only(right: 20, top: 20, bottom: 20),
+          padding: EdgeInsets.symmetric(vertical: 25, horizontal: 20),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color:
+              selectedFoodCard == index ? AppColors.primary : AppColors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: AppColors.lighterGray,
+                  blurRadius: 15,
+                )
+              ]),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Image.network(imagePath, width: 40),
+              PrimaryText(text: name, fontWeight: FontWeight.w800, size: 16),
+              RawMaterialButton(
+                  onPressed: null,
+                  fillColor: selectedFoodCard == index
+                      ? AppColors.white
+                      : AppColors.tertiary,
+                  shape: CircleBorder(),
+                  child: Icon(Icons.chevron_right_rounded,
+                      size: 20,
+                      color: selectedFoodCard == index
+                          ? AppColors.black
+                          : AppColors.white))
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }
+
+

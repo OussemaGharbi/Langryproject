@@ -50,10 +50,7 @@ class HomeController extends GetxController{
       update();
     });
   }
-  addToCart(Product product){
 
-
-  }
 
   getProducts() async {
     _loading.value = true;

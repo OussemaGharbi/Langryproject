@@ -8,6 +8,7 @@ import 'package:landryproject/helper/binding.dart';
 import 'package:landryproject/models/CategoriesViewModel.dart';
 import 'package:landryproject/presentation/Home.dart';
 import 'package:landryproject/presentation/HomeScreen.dart';
+import 'package:landryproject/presentation/HomeTest.dart';
 import 'package:landryproject/presentation/Services.dart';
 import 'package:landryproject/presentation/ServicesCategories.dart';
 import 'package:landryproject/presentation/cart/cart.dart';
@@ -30,7 +31,6 @@ class _AppState extends State<MyApp> {
 
   bool _initialized = false;
   bool _error = false;
-
   void initializeFlutterFire() async {
     try {
       await Firebase.initializeApp();

@@ -1,3 +1,4 @@
+import 'package:landryproject/models/ProductModel.dart';
 import 'package:landryproject/models/card_model.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -40,6 +41,21 @@ class CardDataBaseHelper {
     );
     print(model.name);
 
+  }
+  updateProduct(CardModel product)async{
+    var dbClient = await database;
+    return await dbClient!.update(
+      tableCard,
+      product.toJson(),
+      where :'${columnProductId} == ?', whereArgs: [product.productId]
+    );
+  }
+  deleteProduct(CardModel product)async{
+    var dbClient = await database;
+    return await dbClient!.delete(
+        tableCard,
+        where :'${columnProductId} == ?', whereArgs: [product.productId]
+    );
   }
 
   Future <List<CardModel>> getAll() async{

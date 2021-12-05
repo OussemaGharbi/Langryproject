@@ -78,9 +78,22 @@ class ProductScreen extends StatelessWidget {
 
                                           onPressed: () {
                                             cardViewModel!.getAllProduct();
+                                            cardlist.add(
 
+                                            [controller
+                                                  .productModel[index].name,
+                                        controller
+                                                  .productModel[index].price
+                                                  .toString(),
+
+
+                                              controller
+                                                  .productModel[index].image]
+                                            );
                                             CardViewModel x= Get.put(CardViewModel());
-                                            x.addProduct(CardModel(name: controller.productModel[index].name, price:controller.productModel[index].price.toString(), image :controller.productModel[index].image, productId: controller.productModel[index].productId, quantity: 1));
+                                            x.InscreaseQuantity(index);
+
+                                            x.addProduct(CardModel(name: controller.productModel[index].name, price:controller.productModel[index].price.toString(), image :controller.productModel[index].image, productId: controller.productModel[index].productId, quantity: 0));
                                             x.getAllProduct();
                                             Get.snackbar("Added to Card", "Successfully");
 
@@ -125,39 +138,27 @@ class ProductScreen extends StatelessWidget {
                 ),
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
 
-                  Text("Total", style: TextStyle(
-                    fontSize: 22,
-                    color: Colors.black,
 
-                  ),
-                  ),
-                  Text("200 DT", style: TextStyle(
-                    fontSize: 22,
-                    color: Colors.green,
-
-                  ),
-                  ),
                   Container(
-                    padding: EdgeInsets.all(15.0),
-                    width: 130,
-                    height: 90,
-                    child: FloatingActionButton.extended(
-                      backgroundColor: Colors.green,
-
-
-                      onPressed: () {
-
-                        Get.to(CartScreen(), arguments: cardlist);
+                    padding: EdgeInsets.all(12.0),
+                    child: FloatingActionButton(
+                        backgroundColor: Colors.black,
 
 
 
-                      },
-                      icon: Icon(Icons.save),
-                      label: Text("Save"),
-                    ),
+                        onPressed: () {
+
+                          Get.to(CartScreen(), arguments: cardlist);
+
+
+
+                        },
+                        child: Icon(Icons.shopping_cart),
+
+                      ),
                   ),
                 ],
 

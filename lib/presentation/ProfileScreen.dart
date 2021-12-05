@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:landryproject/controllers/LoginController.dart';
+import 'package:landryproject/presentation/login.dart';
 class ProfileView extends StatelessWidget {
   final name = TextEditingController();
   final age = TextEditingController();
@@ -41,35 +43,38 @@ class ProfileView extends StatelessWidget {
                                 ],
                               )
                           )),
-                      Container(
-                          margin: EdgeInsets.only(top: 40, bottom: 5),
-                          child: Padding(
-                              padding:
-                              const EdgeInsets.symmetric(horizontal: 10.0),
-                              child: ElevatedButton(
-                                onPressed: ()  {
+                      GetBuilder<LoginController>(
+                        init: LoginController(),
+                        builder:(controller)=> Container(
+                            margin: EdgeInsets.only(top: 40, bottom: 5),
+                            child: Padding(
+                                padding:
+                                const EdgeInsets.symmetric(horizontal: 10.0),
+                                child: ElevatedButton(
+                                  onPressed: ()  {
+                                    controller.signOut();
+                                    Get.offAll(Login());
 
-
-
-                                },
-                                child: Container(
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 15.0,
-                                      horizontal: 15.0,
-                                    ),
-                                    child: new Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Expanded(
-                                            child: Text(
-                                              "update",
-                                              textAlign: TextAlign.center,
-                                            )),
-                                      ],
-                                    )),
-                              )
-                          )),
+                                  },
+                                  child: Container(
+                                      padding: const EdgeInsets.symmetric(
+                                        vertical: 15.0,
+                                        horizontal: 15.0,
+                                      ),
+                                      child: new Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Expanded(
+                                              child: Text(
+                                                "update",
+                                                textAlign: TextAlign.center,
+                                              )),
+                                        ],
+                                      )),
+                                )
+                            )),
+                      ),
                     ],
                   ))
             ],

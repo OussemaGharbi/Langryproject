@@ -15,7 +15,7 @@ class CheckoutView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<CheckoutController>(
-      init: Get.put(CheckoutController()),
+      init: CheckoutController(),
       builder: (controller)=> Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -54,7 +54,8 @@ class CheckoutView extends StatelessWidget {
                     );
                   },
                   indicatorWidgetBuilder: (_, index) {
-                    if (index <= controller.index) {
+                    if (index <= controller.index
+                    ) {
                       return DotIndicator(
                         size: 35.0,
                         border: Border.all(color: Colors.green, width: 1),
