@@ -1,4 +1,3 @@
-import 'package:landryproject/models/ProductModel.dart';
 import 'package:landryproject/models/card_model.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -30,6 +29,13 @@ class CardDataBaseHelper {
       $columnProductId TEXT)
      ''');
         });
+  }
+  deleteAllRows()async{
+    var dbClient = await database;
+    return await dbClient!.delete(
+        tableCard
+
+    );
   }
 
   insert(CardModel model) async {

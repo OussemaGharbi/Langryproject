@@ -30,11 +30,24 @@ class ProductScreen extends StatelessWidget {
     builder: (controller)=>
        Container(
         child: Scaffold(
+          appBar: AppBar(
+
+            backgroundColor: Constants.kPrimaryColor,
+            title: Column(
+
+              children: [
+                Text(
+                  "Services",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ],
+            ),
+          ),
           body: Column(
             children: [
               Expanded(
                 child: Container(
-                  padding: EdgeInsets.all(20),
+                  padding: EdgeInsets.only(left: 20, right:20),
                   child: ListView.separated(
                     itemCount: controller.productModel.length ,
 
@@ -91,9 +104,9 @@ class ProductScreen extends StatelessWidget {
                                                   .productModel[index].image]
                                             );
                                             CardViewModel x= Get.put(CardViewModel());
-                                            x.InscreaseQuantity(index);
+                                            x.InscreaseQuantity(controller.productModel[index].productId);
 
-                                            x.addProduct(CardModel(name: controller.productModel[index].name, price:controller.productModel[index].price.toString(), image :controller.productModel[index].image, productId: controller.productModel[index].productId, quantity: 0));
+                                            x.addProduct(CardModel(name: controller.productModel[index].name, price:controller.productModel[index].price.toString(), image :controller.productModel[index].image, productId: controller.productModel[index].productId, quantity: 1));
                                             x.getAllProduct();
                                             Get.snackbar("Added to Card", "Successfully");
 
@@ -142,9 +155,7 @@ class ProductScreen extends StatelessWidget {
                 children: [
 
 
-                  Container(
-                    padding: EdgeInsets.all(12.0),
-                    child: FloatingActionButton(
+                  FloatingActionButton(
                         backgroundColor: Colors.black,
 
 
@@ -159,7 +170,7 @@ class ProductScreen extends StatelessWidget {
                         child: Icon(Icons.shopping_cart),
 
                       ),
-                  ),
+
                 ],
 
               ),

@@ -23,10 +23,10 @@ class _HomeScreenState extends State<HomeScreen> {
   int selectedFoodCard = 0;
 
 
-
-  @override                               
+  @override
   Widget build(BuildContext context) {
     final productcontroller = Get.put(ProductScreen());
+
 
     return GetBuilder<HomeController>(
       init: Get.put(HomeController()),
@@ -78,7 +78,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
 
-
                       ],
                     ),
                   ),
@@ -116,13 +115,14 @@ class _HomeScreenState extends State<HomeScreen> {
       selectedItemColor: Constants.primaryColor,
       onTap: (index){
           if(index==1){
-            Get.to(ProductScreen());
-          }
-          if(index ==0){
             CardViewModel c =Get.put(CardViewModel());
             c.update();
             print('updated');
             Get.to(CartScreen(), arguments: z);
+          }
+          if(index ==0){
+            Get.to(HomeScreen());
+
           }
           if(index==2){
             Get.to(ProfileView());
@@ -133,17 +133,25 @@ class _HomeScreenState extends State<HomeScreen> {
       },),
     );
   }
+
   Widget foodCategoryCard(String imagePath, String name, int index) {
+    HomeController x;
     return GetBuilder<HomeController>(
       init:HomeController(),
       builder:(controller)=> GestureDetector(
         onTap: () => {
-          setState(
-                () => {
-              print(index),
+        x = Get.put(HomeController()),
+          x.categoryName = controller.categoryModel[index].name,
+         print( x.categoryName),
+
+
+
               selectedFoodCard = index,
-            },
-          ),
+          x.ClearProducts(),
+          x.HomeViewModel(),
+
+          Get.to(ProductScreen()),
+
         },
 
         child: Container(

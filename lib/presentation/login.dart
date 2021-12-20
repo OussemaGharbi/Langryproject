@@ -11,7 +11,6 @@ class Login extends StatelessWidget {
   Login({Key? key}) : super(key: key);
   LoginController controller = Get.find();
 
-  late String ? _phonenumber;
   final GlobalKey<FormState> _formkey = new GlobalKey<FormState>();
   final phone = TextEditingController();
 
@@ -72,7 +71,6 @@ class Login extends StatelessWidget {
           }
         },
         onSaved: (String ? value){
-          this._phonenumber= value ;
 
         }
     ),

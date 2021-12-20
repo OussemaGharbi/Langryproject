@@ -14,7 +14,7 @@ class HomeService {
     return value.docs;
   }
 
-  Future<List<QueryDocumentSnapshot>> getBestSelling() async {
+  Future<List<QueryDocumentSnapshot>> getProducts() async {
     var value = await _productCollectionRef.get();
     print("fffffffffffffffffffff${value.docs}");
     return value.docs;

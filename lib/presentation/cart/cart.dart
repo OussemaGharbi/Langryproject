@@ -17,8 +17,6 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    dynamic y = Get.arguments.length;//index
-    dynamic x = Get.arguments;//index
 
 
     Get.put(CardViewModel());
@@ -29,6 +27,19 @@ class CartScreen extends StatelessWidget {
     return GetBuilder<CardViewModel>(
       init: CardViewModel() ,
       builder:(controller)=>   Scaffold(
+        appBar: AppBar(
+
+          backgroundColor: Constants.kPrimaryColor,
+          title: Column(
+
+            children: [
+              Text(
+                "Cart",
+                style: TextStyle(color: Colors.white),
+              ),
+            ],
+          ),
+        ),
         body: controller.cardPoduct.length ==0 ? Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -50,10 +61,10 @@ class CartScreen extends StatelessWidget {
                       direction: DismissDirection.horizontal,
                       onDismissed: (direction) {
                         if (direction == DismissDirection.endToStart) {
-                          controller.totalPrice -= double.parse(controller.cardPoduct[index].price) ;
+                          controller.totalPrice -= (double.parse(controller.cardPoduct[index].price)*controller.cardPoduct[index].quantity) ;
 
-                          controller.deletelement(index);
-                         controller.cardPoduct.removeAt(index);
+                          controller.deletelement(controller.cardPoduct[index].productId);
+                         controller.cardPoduct.remove(controller.cardPoduct[index]);
 
                           Get.snackbar('context', 'Mail has beed deleted!');
                         }
@@ -105,7 +116,7 @@ class CartScreen extends StatelessWidget {
                                         IconButton(
                                           icon: new Icon(Icons.add_circle_outline),
                                           onPressed: (){
-                                            controller.InscreaseQuantity(index);
+                                            controller.InscreaseQuantity(controller.cardPoduct[index].productId);
 
 
                                           },
@@ -152,49 +163,62 @@ class CartScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
+            Container(
+              padding: EdgeInsets.only(left: 10, right: 10),
+            decoration: BoxDecoration(
+            color: Colors.white,
+            
+            boxShadow: [
+            BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 5,
+            blurRadius: 7,
+            offset: Offset(0, 3), // changes position of shadow
+            ),
+            ],  ),            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
 
-                Text("Total", style: TextStyle(
-                  fontSize: 22,
-                  color: Colors.black,
-
-                ),
-                ),
-                GetBuilder<CardViewModel>(
-                  init: Get.put(CardViewModel()),
-                  builder: (controller)=> Text("${controller.totalPrice.toStringAsFixed(2)}", style: TextStyle(
+                  Text("Total", style: TextStyle(
                     fontSize: 22,
-                    color: Colors.green,
+                    color: Colors.black,
 
                   ),
                   ),
-                ),
-                Container(
-                  padding: EdgeInsets.all(15.0),
-                  width: 150,
-                  height: 90,
-
-                  child: ElevatedButton(
-
-                    child: Text('Check out'),
-
-                    style: ElevatedButton.styleFrom(
-                      primary: Constants.primaryColor,
-                      shadowColor: Colors.black,
+                  GetBuilder<CardViewModel>(
+                    init: Get.put(CardViewModel()),
+                    builder: (controller)=> Text("${controller.totalPrice.toStringAsFixed(2)}", style: TextStyle(
+                      fontSize: 22,
+                      color: Colors.green,
 
                     ),
-
-                    onPressed: () {
-                      Get.to(GetLocation());
-
-                    },
-
+                    ),
                   ),
-                ),
-              ],
+                  Container(
+                    padding: EdgeInsets.all(15.0),
+                    width: 150,
+                    height: 90,
 
+                    child: ElevatedButton(
+
+                      child: Text('Check out'),
+
+                      style: ElevatedButton.styleFrom(
+                        primary: Constants.primaryColor,
+                        shadowColor: Colors.black,
+
+                      ),
+
+                      onPressed: () {
+                        Get.to(CheckoutScreen());
+
+                      },
+
+                    ),
+                  ),
+                ],
+
+              ),
             ),
           ],
         ),

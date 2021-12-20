@@ -51,7 +51,7 @@ class LoginController extends GetxController {
         isLoading.value = false;
         db.AddNewUser(userCredential.user!.phoneNumber?? "");
 
-        Get.off(HomeScreen());
+        Get.offAll(HomeScreen());
 
       }
     } on Exception catch (e) {

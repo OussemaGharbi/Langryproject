@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:landryproject/models/card_model.dart';
 import 'package:landryproject/service/database/CartDatabaseHelper.dart';
+import 'package:sqflite/sqflite.dart';
 
 class CardViewModel extends GetxController{
 
@@ -47,7 +48,6 @@ class CardViewModel extends GetxController{
   }
   addProduct(CardModel model) async{
     if(_cardProduct.length==0){
-      model.quantity +=1;
       model.price=model.price;
       await dbHelper.insert(model);
       _cardProduct.add(model);
@@ -60,7 +60,6 @@ class CardViewModel extends GetxController{
           return;
         }
       }
-      model.quantity +=1;
 
       await dbHelper.insert(model);
       _cardProduct.add(model);
@@ -71,15 +70,33 @@ class CardViewModel extends GetxController{
     update();
 
   }
-  InscreaseQuantity(int index) async {
-    _cardProduct[index].quantity ++;
-    _totalPrice += ((double.parse(_cardProduct[index].price)));
-    await dbHelper.updateProduct(_cardProduct[index]);
+  InscreaseQuantity(String id) async {
+    for(int i =0; i<cardPoduct.length;i++){
+      if (_cardProduct[i].productId==id)
+        {
+          _cardProduct[i].quantity ++;
+          _totalPrice += ((double.parse(_cardProduct[i].price)));
+          await dbHelper.updateProduct(_cardProduct[i]);
+          print("cart quantity${_cardProduct[i].quantity}");
+          print("cart price${_cardProduct[i].price}");
+        }
+
+
+
+    }
+
 
     update();
   }
-  deletelement(int index)async{
-    await dbHelper.deleteProduct(_cardProduct[index]);
+  deletelement(String id)async{
+    for(int i =0; i<cardPoduct.length;i++){
+      if (_cardProduct[i].productId==id){
+        await dbHelper.deleteProduct(_cardProduct[i]);
+
+      }
+
+    }
+
     update();
 
   }
@@ -96,5 +113,8 @@ class CardViewModel extends GetxController{
    await  dbHelper.updateProduct(_cardProduct[index]);
 
   }
+  resetAll()async {
+    _cardProduct.clear();
+await dbHelper.deleteAllRows();  }
 
 }
