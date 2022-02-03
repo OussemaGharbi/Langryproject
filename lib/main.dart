@@ -64,7 +64,7 @@ final loginController = Get.put(LoginController());
       initialBinding: Binding(),
 
 
-      home: SuccessScreen(),
+      home: Home(),
     );
   }
 }
